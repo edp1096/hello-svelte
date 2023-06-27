@@ -2,9 +2,9 @@
 <svelte:options tag={null} />
 
 <script>
-    let count = 0;
+    export let count = 0;
     const increment = () => {
-        count += 1;
+        count = parseInt(count) + 1;
     };
 </script>
 
