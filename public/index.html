@@ -17,6 +17,17 @@
 <body>
 	<my-counter count="5"></my-counter>
 	<my-clock></my-clock>
+
+	<button onclick="getCount()">Get current count</button>
 </body>
+
+<script>
+	function getCount() {
+		const counter = document.querySelector('my-counter')
+
+		console.log(counter.count)
+		alert(counter.count)
+	}
+</script>
 
 </html>
