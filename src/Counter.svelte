@@ -1,10 +1,26 @@
-<!-- <svelte:options tag="my-counter" /> -->
-<svelte:options tag={null} />
+<svelte:options customElement="my-counter" />
 
 <script>
     export let count = 0;
+
+    // svelte-ignore unused-export-let
+    export let numData = {};
+    
     const increment = () => {
         count = parseInt(count) + 1;
+    };
+    const decrement = () => {
+        count = parseInt(count) - 1;
+    };
+
+    // svelte-ignore unused-export-let
+    export let incNum = function () {
+        increment();
+    };
+
+    // svelte-ignore unused-export-let
+    export let decNum = function () {
+        decrement();
     };
 </script>
 

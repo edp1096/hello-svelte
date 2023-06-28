@@ -15,18 +15,30 @@
 </head>
 
 <body>
-	<my-counter count="5"></my-counter>
+	<my-counter id="first" count=5></my-counter>
 	<my-clock></my-clock>
 
 	<button onclick="getCount()">Get current count</button>
+	<button onclick="incCount()">Increase count</button>
+	<button onclick="decCount()">Decrease count</button>
 </body>
 
 <script>
-	function getCount() {
-		const counter = document.querySelector('my-counter')
+	const counter1 = document.querySelector('my-counter#first')
 
-		console.log(counter.count)
-		alert(counter.count)
+	function getCount() {
+		console.log(counter1.numData)
+		alert(counter1.count)
+	}
+
+	function incCount() {
+		counter1.incNum()
+		counter1.numData.num = 1
+	}
+
+	function decCount() {
+		counter1.decNum()
+		counter1.numData.num = -1
 	}
 </script>
 

@@ -1,5 +1,4 @@
-<!-- <svelte:options tag="my-clock" /> -->
-<svelte:options tag={null} />
+<svelte:options customElement="my-clock" />
 
 <script>
     import { onMount, onDestroy } from "svelte";
