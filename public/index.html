@@ -1,45 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
 	<meta charset='utf-8'>
 	<meta name='viewport' content='width=device-width,initial-scale=1'>
+	<meta name="google" content="notranslate">
 
 	<title>Svelte web components</title>
 
 	<link rel='icon' type='image/png' href='/favicon.png'>
+
+	<link rel="https://cdn.jsdelivr.net/npm/normalize-css@2.3.1/normalize.min.css">
+
 	<link rel='stylesheet' href='/global.css'>
 	<link rel='stylesheet' href='/build/components.css'>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
 
 	<script defer src='/build/components.js'></script>
 </head>
 
 <body>
-	<my-counter id="first" count=5></my-counter>
-	<my-clock></my-clock>
+	<div class="misc">
+		<my-counter count=5></my-counter>
+		<my-clock></my-clock>
 
-	<button onclick="getCount()">Get current count</button>
-	<button onclick="incCount()">Increase count</button>
-	<button onclick="decCount()">Decrease count</button>
+		<button onclick="getCount()">Get current count</button>
+		<button onclick="incCount()" role="button">Increase count</button>
+		<button onclick="decCount()" role="button">Decrease count</button>
+
+		<!-- Dark Mode / Light Mode 토글 버튼 -->
+		<button class="darkmode" onclick="toggleDarkMode()">🌕🌒</button>
+	</div>
+
+	<div class="calendar">
+		<my-calendar></my-calendar>
+	</div>
 </body>
 
 <script>
-	const counter1 = document.querySelector('my-counter#first')
+	const buttonText = { "light": "🌕", "dark": "🌒" }
+
+	function setButtonText() {
+		const html = document.querySelector('html')
+		const currentTheme = html.getAttribute('data-theme')
+		document.querySelector("button.darkmode").innerHTML = buttonText[currentTheme]
+	}
+
+	function toggleDarkMode() {
+		const html = document.querySelector('html')
+		let currentTheme = html.getAttribute('data-theme')
+		const isDark = currentTheme === 'dark'
+		html.setAttribute('data-theme', isDark ? 'light' : 'dark')
+
+		currentTheme = html.getAttribute('data-theme')
+		document.querySelector("button.darkmode").innerHTML = buttonText[currentTheme]
+	}
+</script>
+
+<script>
+	const counter = document.querySelector('my-counter')
 
 	function getCount() {
-		console.log(counter1.numData)
-		alert(counter1.count)
+		console.log(counter.numData)
+		alert(counter.count)
 	}
 
 	function incCount() {
-		counter1.incNum()
-		counter1.numData.num = 1
+		counter.incNum()
+		counter.numData.num = 1
 	}
 
 	function decCount() {
-		counter1.decNum()
-		counter1.numData.num = -1
+		counter.decNum()
+		counter.numData.num = -1
 	}
+
+	document.addEventListener("DOMContentLoaded", () => { setButtonText() })
 </script>
+
+<style>
+	.calendar {
+		width: 100%;
+		height: calc(100vh - 65px);
+		padding: 0;
+		margin: 0;
+	}
+</style>
 
 </html>

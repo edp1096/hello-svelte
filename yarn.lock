@@ -30,12 +30,9 @@
   integrity sha512-xnkseuNADM0gt2bs+BvhO0p78Mk762YnZdsuzFV018NoG1Sj1SCQvpSqa7XUaTam5vAGasABV9qXASMKnFMwMw==
 
 "@jridgewell/source-map@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@jridgewell/source-map/-/source-map-0.3.3.tgz#8108265659d4c33e72ffe14e33d6cc5eb59f2fda"
-  integrity sha512-b+fsZXeLYi9fEULmfBrhxn4IrPlINf8fiNarzTof004v3lFdntdwa9PF7vFJqm3mg7s+ScJMxXaE3Acp1irZcg==
-  dependencies:
-    "@jridgewell/gen-mapping" "^0.3.0"
-    "@jridgewell/trace-mapping" "^0.3.9"
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@jridgewell/source-map/-/source-map-0.3.4.tgz#856a142864530d4059dda415659b48d37db2d556"
+  integrity sha512-KE/SxsDqNs3rrWwFHcRh15ZLVFrI0YoZtgAdIyIq9k5hUNmiWRXXThPomIxHuL20sLdgzbDFyvkUMna14bvtrw==
 
 "@jridgewell/sourcemap-codec@1.4.14":
   version "1.4.14"
@@ -120,7 +117,7 @@
   resolved "https://registry.yarnpkg.com/@types/resolve/-/resolve-1.20.2.tgz#97d26e00cd4a0423b4af620abecf3e6f442b7975"
   integrity sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==
 
-acorn@^8.8.2:
+acorn@^8.8.2, acorn@^8.9.0:
   version "8.9.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.9.0.tgz#78a16e3b2bcc198c10822786fa6679e245db5b59"
   integrity sha512-jaVNAFBHNLXspO543WnNNPZFRtavh3skAkITqD0/2aeMkKZTN+254PyhwxFYrk3vQ1xfY+2wbesJMs/JC8/PwQ==
@@ -133,7 +130,7 @@ anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
-aria-query@^5.2.1:
+aria-query@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/aria-query/-/aria-query-5.3.0.tgz#650c569e41ad90b51b3d7df5e5eed1c7549c103e"
   integrity sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A==
@@ -430,6 +427,11 @@ minimatch@^5.0.1:
   dependencies:
     brace-expansion "^2.0.1"
 
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
+
 mri@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mri/-/mri-1.2.0.tgz#6721480fec2a11a4889861115a48b6cbe7cc8f0b"
@@ -609,15 +611,15 @@ supports-preserve-symlinks-flag@^1.0.0:
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
 svelte@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-4.0.0.tgz#ecb79e4d6abe1658ddf7422227a731bc835a1484"
-  integrity sha512-+yCYu3AEUu9n91dnQNGIbnVp8EmNQtuF/YImW4+FTXRHard7NMo+yTsWzggPAbj3fUEJ1FBJLkql/jkp6YB5pg==
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-4.0.1.tgz#5c01f5f7cb05ac21ffe3a741e0c942972dc47c05"
+  integrity sha512-7n2u7A5cu8xCY6MBiXh/Mg6Lh3+Mw2qXlTDBYhzvCvmSM4L4gc4MVo540UtGcjqBiA48E1VDW+EUpBr7iuBlPg==
   dependencies:
     "@ampproject/remapping" "^2.2.1"
     "@jridgewell/sourcemap-codec" "^1.4.15"
     "@jridgewell/trace-mapping" "^0.3.18"
-    acorn "^8.8.2"
-    aria-query "^5.2.1"
+    acorn "^8.9.0"
+    aria-query "^5.3.0"
     axobject-query "^3.2.1"
     code-red "^1.0.3"
     css-tree "^2.3.1"

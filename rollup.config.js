@@ -34,7 +34,7 @@ export default {
 	output: {
 		sourcemap: true,
 		format: 'iife',
-		name: 'app',
+		name: 'my_components',
 		file: 'public/build/components.js'
 	},
 	plugins: [

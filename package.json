@@ -1,6 +1,6 @@
 {
   "name": "svelte-app",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -19,6 +19,7 @@
     "svelte": "^4.0.0"
   },
   "dependencies": {
+    "moment": "^2.29.4",
     "sirv-cli": "^2.0.0"
   }
 }
