@@ -71,7 +71,6 @@ select,
 textarea {
 	font-family: inherit;
 	font-size: inherit;
-	-webkit-padding: 0.4em 0;
 	padding: 0.4em;
 	margin: 0 0 0.5em 0;
 	box-sizing: border-box;
@@ -98,5 +97,21 @@ button:not(:disabled):active {
 }
 
 button:focus {
+	border-color: var(--button-focus-border-color);
+}
+
+button:hover {
+	background-color: var(--button-active-background-color);
+}
+
+select {
+	display: inline-block;
+	width: auto;
+	font-size: 1rem;
+	color: var(--text-color);
+	background-color: var(--background-color);
+}
+
+select:hover {
 	border-color: var(--button-focus-border-color);
 }

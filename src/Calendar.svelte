@@ -103,7 +103,7 @@
         const day = startOfCalendar;
         while (day.isSameOrBefore(endOfCalendar)) {
             calendarData.days.push({
-                day: day.format("D"),
+                num: day.format("D"),
                 isCurrentMonth: day.isSame(refDay, "month"),
                 isToday: day.isSame(moment(), "day"),
             });
@@ -170,7 +170,9 @@
                     {day.isCurrentMonth ? 'current-month' : 'other-month'}
                     {day.isToday ? 'today' : ''}"
                 >
-                    <span class="calendar-day-num">{day.day}</span>
+                    <div class="calendar-day-container">
+                        <span class="calendar-day-num">{day.num}</span>
+                    </div>
                 </li>
             {/each}
         </ul>
@@ -182,12 +184,33 @@
         --calendar-active-text-color: #444;
         --calendar-inactive-text-color: #aaa;
         --calendar-background-color: #fff;
+        --calendar-border-color: #ddd;
     }
 
     [data-theme="dark"] {
         --calendar-active-text-color: #fff;
         --calendar-inactive-text-color: #aaa;
         --calendar-background-color: #444;
+        --calendar-border-color: #555;
+    }
+
+    div,
+    ul,
+    li {
+        padding: 0;
+        margin: 0;
+    }
+
+    select {
+        display: inline-block;
+        width: auto;
+        font-size: 1rem;
+        color: var(--calendar-active-text-color);
+        background-color: var(--calendar-background-color);
+    }
+
+    select:hover {
+        border-color: var(--calendar-active-text-color);
     }
 
     div.calendar-container {
@@ -196,18 +219,15 @@
         justify-content: flex-start;
         align-items: flex-start;
         width: 100%;
-        min-width: 70rem;
+        min-width: 15rem;
         height: 100%;
         overflow: auto;
     }
 
     div.calendar-controls {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
+        display: initial;
+        white-space: nowrap;
         width: 100%;
-        /* height: 100px; */
     }
 
     div.calendar-view {
@@ -222,10 +242,8 @@
         flex-direction: row;
         justify-content: center;
         width: 100%;
-        height: 10%;
+        height: 4rem;
         list-style: none;
-        padding: 0;
-        margin: 0;
     }
 
     ul.calendar-weekdays li {
@@ -245,10 +263,8 @@
         flex-wrap: wrap;
         justify-content: center;
         width: 100%;
-        height: 90%;
+        height: calc(100% - 4.5rem);
         list-style: none;
-        padding: 0;
-        margin: 0;
     }
 
     ul.calendar-days > li {
@@ -256,33 +272,40 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        width: 14%;
+        width: calc(100% / 7);
+    }
+
+    ul.calendar-days > li > div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: calc(100% - 0.22rem);
+        height: calc(100% - 0.22rem);
+        border: 0.01rem solid var(--calendar-border-color);
+        padding: 0.2rem;
         font-size: 1.5rem;
-        /* font-weight: bold; */
     }
 
     ul.calendar-days > li:hover {
-        background-color: #44888c !important;
+        background-color: rgba(80, 170, 170, 0.3) !important;
     }
 
-    ul.calendar-days li.current-month {
+    ul.calendar-days > li.current-month {
         color: var(--calendar-active-text-color);
         background-color: var(--calendar-background-color);
         height: auto;
-        margin-right: 0.2rem;
-        margin-bottom: 0.2rem;
     }
 
-    ul.calendar-days li.other-month {
+    ul.calendar-days > li.other-month {
         color: var(--calendar-inactive-text-color);
         background-color: var(--calendar-background-color);
         height: auto;
-        margin-right: 0.2rem;
-        margin-bottom: 0.2rem;
     }
 
-    ul.calendar-days li.today {
-        background-color: red;
+    ul.calendar-days > li.today {
+        /* background-color: red; */
+        background-color: rgba(230, 110, 110, 0.3);
     }
 
     span.calendar-day-num {
