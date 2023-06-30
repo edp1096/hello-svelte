@@ -73,7 +73,7 @@
     /**
      * @description
      * Setup selector years.
-     * @param {Date} date - Date object.
+     * @param {moment.Moment} date - Date object.
      * @returns {void}
      */
     const setupSelectorYears = (date) => {
@@ -90,7 +90,7 @@
     /**
      * @description
      * Setup selector months.
-     * @param {Date} date - Date object.
+     * @param {moment.Moment} date - Date object.
      * @returns {void}
      */
     const setupSelectorMonths = (date) => {
@@ -124,7 +124,7 @@
         const minYear = calendarData.years[0];
         if (previousMonth.year() < minYear) {
             alert(`Min year is ${minYear}.`);
-            return false;
+            return;
         }
 
         setupDays(previousMonth);
@@ -142,7 +142,7 @@
         const maxYear = calendarData.years[calendarData.years.length - 1];
         if (nextMonth.year() > maxYear) {
             alert(`Max year is ${maxYear}.`);
-            return false;
+            return;
         }
 
         setupDays(nextMonth);
@@ -167,7 +167,7 @@
     /**
      * @description
      * Setup days.
-     * @param {Date} referenceDate - Reference date.
+     * @param {moment.Moment} referenceDate - Reference date.
      * @returns {void}
      */
     const setupDays = (referenceDate) => {
@@ -211,13 +211,14 @@
         setupDays(today);
     });
 
-    onDestroy(() => {
-        observer.disconnect();
-    });
+    // onDestroy(() => {
+    //     observer.disconnect();
+    // });
+    // onDestroy(() => {});
 </script>
 
 <div class="calendar-container" data-theme={theme}>
-    <link rel="stylesheet" href="global.css" />
+    <!-- <link rel="stylesheet" href="global.css" /> -->
     <div class="calendar-controls">
         <select
             name="calendar-selector-year"
