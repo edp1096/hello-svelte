@@ -1,11 +1,13 @@
-# Taste web components using svelete
+# Custom element using svelete
+
+## Update
+```sh
+yarn outdated
+yarn upgrade --latest
+```
 
 ## Run
 ```sh
 yarn
 yarn dev
 ```
-
-## Source
-* https://www.thisdot.co/blog/web-components-with-svelte
-* https://svelte.dev/docs/custom-elements-api

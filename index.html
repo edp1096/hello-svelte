@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset='utf-8'>
+  <!-- <link rel="icon" type="image/svg+xml" href="vite.svg" /> -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>My calendar</title>
+
+  <link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/normalize-css@2.3.1/normalize.min.css">
+  <script defer type="module" src="/src/main.js"></script>
+</head>
+
+<body>
+  <div class="misc">
+    <button class="darkmode" onclick="toggleDarkMode()"></button>
+    <button onclick="changeTheme('light')">Light</button>
+    <button onclick="changeTheme('dark')">Dark</button>
+  </div>
+
+  <div class="calendar">
+    <my-calendar></my-calendar>
+  </div>
+</body>
+
+<script>
+  const buttonText = { "light": "🌕", "dark": "🌒" }
+
+  function setButtonText() {
+    const html = document.querySelector('html')
+    const currentTheme = html.getAttribute('data-theme')
+    document.querySelector("button.darkmode").innerHTML = buttonText[currentTheme]
+  }
+
+  function toggleDarkMode() {
+    const html = document.querySelector('html')
+    let currentTheme = html.getAttribute('data-theme')
+    const isDark = currentTheme === 'dark'
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark')
+
+    currentTheme = html.getAttribute('data-theme')
+    document.querySelector("button.darkmode").innerHTML = buttonText[currentTheme]
+  }
+
+  function changeTheme(mode) {
+    if (mode != 'light' && mode != 'dark') {
+      alert("Invalid theme name")
+      return
+    }
+    calendar.theme = mode
+  }
+</script>
+
+<script>
+  const calendar = document.querySelector('my-calendar')
+  document.addEventListener("DOMContentLoaded", () => { setButtonText() })
+</script>
+
+
+<style>
+  .misc {
+    white-space: nowrap;
+  }
+
+  .calendar {
+    width: 100%;
+    height: calc(100vh - 65px);
+    padding: 0;
+    margin: 0;
+  }
+</style>
+
+</html>
