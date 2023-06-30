@@ -1,4 +1,4 @@
-# Calendar custom element using svelete
+# Custom element using svelete
 
 ## Update
 ```sh
