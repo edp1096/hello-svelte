@@ -7,18 +7,20 @@
 	<meta name="google" content="notranslate">
 	<link rel='icon' type='image/png' href='favicon.png'>
 
-	<title>Svelte web components</title>
+	<title>My calendar</title>
 
 	<link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/normalize-css@2.3.1/normalize.min.css">
 	<link rel='stylesheet' href='global.css'>
-	<link rel='stylesheet' href='build/components.css'>
+	<link rel='stylesheet' href='build/calendar.css'>
 
-	<script defer type="text/javascript" src='build/components.js'></script>
+	<script defer type="text/javascript" src='./build/calendar.js'></script>
 </head>
 
 <body>
 	<div class="misc">
-		<button class="darkmode" onclick="toggleDarkMode()">🌕🌒</button>
+		<button class="darkmode" onclick="toggleDarkMode()"></button>
+		<button onclick="changeTheme('light')">Light</button>
+		<button onclick="changeTheme('dark')">Dark</button>
 	</div>
 
 	<div class="calendar">
@@ -44,26 +46,18 @@
 		currentTheme = html.getAttribute('data-theme')
 		document.querySelector("button.darkmode").innerHTML = buttonText[currentTheme]
 	}
+
+	function changeTheme(mode) {
+		if (mode != 'light' && mode != 'dark') {
+			alert("Invalid theme name")
+			return
+		}
+		calendar.theme = mode
+	}
 </script>
 
 <script>
-	const counter = document.querySelector('my-counter')
-
-	function getCount() {
-		console.log(counter.numData)
-		alert(counter.count)
-	}
-
-	function incCount() {
-		counter.incNum()
-		counter.numData.num = 1
-	}
-
-	function decCount() {
-		counter.decNum()
-		counter.numData.num = -1
-	}
-
+	const calendar = document.querySelector('my-calendar')
 	document.addEventListener("DOMContentLoaded", () => { setButtonText() })
 </script>
 

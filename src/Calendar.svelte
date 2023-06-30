@@ -1,34 +1,65 @@
 <svelte:options customElement="my-calendar" />
 
 <script>
+    "use strict";
+
     import moment from "moment";
     import "moment/locale/ko";
     import { onMount, onDestroy } from "svelte";
 
-    let theme = "light";
+    /**
+     * @description
+     * Theme.
+     * @type {string}
+     */
+    export let theme = "light";
 
+    /**
+     * @description
+     * MutationObserver for theme changes.
+     * @type {MutationObserver}
+     */
+    const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+            if (mutation.attributeName === "data-theme") {
+                setThemeFromHTML();
+            }
+        }
+    });
+
+    /**
+     * @description
+     * Set theme from HTML attribute.
+     * @returns {void}
+     */
     function setThemeFromHTML() {
         theme = document.documentElement.getAttribute("data-theme") || "light";
     }
 
+    /**
+     * @description
+     * Observe theme changes.
+     * @returns {void}
+     */
     function observeThemeChanges() {
-        const observer = new MutationObserver((mutations) => {
-            for (const mutation of mutations) {
-                if (mutation.attributeName === "data-theme") {
-                    setThemeFromHTML();
-                }
-            }
-        });
-
         observer.observe(document.documentElement, { attributes: true });
     }
 
     export let yearRangeBefore = 2;
     export let yearRangeAfter = 1;
 
-    let selectorYear, selectorMonth;
-
-    const calendarData = {
+    /**
+     * @description
+     * Calendar data.
+     * @type {Object}
+     * @property {number} selectedYear - Selected year.
+     * @property {number} selectedMonth - Selected month.
+     * @property {string[]} weekNames - Week names.
+     * @property {number[]} years - Years.
+     * @property {number[]} months - Months.
+     * @property {Object[]} days - Days.
+     */
+    export let calendarData = {
         selectedYear: 0,
         selectedMonth: 0,
         weekNames: [],
@@ -37,6 +68,14 @@
         days: [],
     };
 
+    let selectorYear, selectorMonth;
+
+    /**
+     * @description
+     * Setup selector years.
+     * @param {Date} date - Date object.
+     * @returns {void}
+     */
     const setupSelectorYears = (date) => {
         calendarData.selectedYear = parseInt(moment(date).format("YYYY"));
         const beginYear = calendarData.selectedYear - yearRangeBefore;
@@ -48,6 +87,12 @@
         }
     };
 
+    /**
+     * @description
+     * Setup selector months.
+     * @param {Date} date - Date object.
+     * @returns {void}
+     */
     const setupSelectorMonths = (date) => {
         calendarData.selectedMonth = parseInt(moment(date).format("MM"));
 
@@ -57,11 +102,21 @@
         }
     };
 
+    /**
+     * @description
+     * Move to today.
+     * @returns {void}
+     */
     const moveToday = () => {
         const today = moment();
         setupDays(today);
     };
 
+    /**
+     * @description
+     * Move to previous month.
+     * @returns {void}
+     */
     const movePreviousMonth = () => {
         const ym = `${calendarData.selectedYear}-${calendarData.selectedMonth}`;
         const previousMonth = moment(ym, "YYYY-MM").subtract(1, "month");
@@ -75,6 +130,11 @@
         setupDays(previousMonth);
     };
 
+    /**
+     * @description
+     * Move to next month.
+     * @returns {void}
+     */
     const moveNextMonth = () => {
         const ym = `${calendarData.selectedYear}-${calendarData.selectedMonth}`;
         const nextMonth = moment(ym, "YYYY-MM").add(1, "month");
@@ -88,6 +148,11 @@
         setupDays(nextMonth);
     };
 
+    /**
+     * @description
+     * Move to date by selector.
+     * @returns {void}
+     */
     const moveDateBySelector = () => {
         if (selectorYear && selectorMonth) {
             calendarData.selectedYear = parseInt(selectorYear.value);
@@ -99,6 +164,12 @@
         }
     };
 
+    /**
+     * @description
+     * Setup days.
+     * @param {Date} referenceDate - Reference date.
+     * @returns {void}
+     */
     const setupDays = (referenceDate) => {
         // const weekNames = moment.weekdaysShort(true);
         const weekNames = moment.weekdays(true);
@@ -129,11 +200,11 @@
     };
 
     onMount(() => {
-        setThemeFromHTML();
-        observeThemeChanges();
-
         moment.locale("ko");
         const today = moment();
+
+        setThemeFromHTML();
+        observeThemeChanges();
 
         setupSelectorYears(today);
         setupSelectorMonths(today);
@@ -172,7 +243,7 @@
             {/each}
         </select>
 
-        <button on:click={() => moveToday()}>Today</button>
+        <button on:click={moveToday}>Today</button>
         <button on:click={movePreviousMonth}> Previous Month </button>
         <button on:click={moveNextMonth}> Next Month </button>
     </div>
@@ -216,6 +287,7 @@
 
 <style lang="scss">
     :host {
+        --calendar-container-background-color: #fff;
         --calendar-active-text-color: #555;
         --calendar-inactive-text-color: #aaa;
         --calendar-background-color: #fff;
@@ -224,6 +296,7 @@
     }
 
     [data-theme="dark"] {
+        --calendar-container-background-color: #555;
         --calendar-active-text-color: #fff;
         --calendar-inactive-text-color: #aaa;
         --calendar-background-color: #555;
@@ -250,6 +323,7 @@
     }
 
     div.calendar-container {
+        background-color: var(--calendar-container-background-color);
         display: flex;
         flex-direction: column;
         justify-content: flex-start;

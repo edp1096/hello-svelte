@@ -30,20 +30,20 @@ function serve() {
 
 export default {
 	input: 'src/main.js',
-	output: { sourcemap: true, format: 'iife', name: 'my_components', file: 'public/build/components.js' },
+	output: { sourcemap: true, format: 'iife', name: 'MyCalendar', file: 'public/build/calendar.js' },
 	plugins: [
 		svelte({
 			preprocess: sveltePreprocess(),
 			compilerOptions: { dev: !production, customElement: true }
 		}),
-		css({ output: 'components.css' }), // Extract component CSS into a separate file
+		css({ output: 'calendar.css' }), // Extract component CSS into a separate file
 
 		resolve({ browser: true, dedupe: ['svelte'], exportConditions: ['svelte'] }), // More config for external dependencies
 		commonjs(),
 
-		!production && serve(), // call `npm run start` in dev mode
-		!production && livereload('public'), // Watch browser when not in production
+		!production && serve(),
+		!production && livereload('public'),
 		production && terser() // Minify for production
 	],
-	watch: { clearScreen: false }
+	watch: { clearScreen: true }
 };
