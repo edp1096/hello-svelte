@@ -2,6 +2,7 @@
 
 <script>
     import moment from "moment";
+    import "moment/locale/ko";
     import { onMount, onDestroy } from "svelte";
 
     let theme = "light";
@@ -99,7 +100,8 @@
     };
 
     const setupDays = (referenceDate) => {
-        const weekNames = moment.weekdaysShort(true);
+        // const weekNames = moment.weekdaysShort(true);
+        const weekNames = moment.weekdays(true);
         calendarData.weekNames = weekNames;
 
         const refDay = moment(referenceDate); // normally today
@@ -120,6 +122,8 @@
                 num: day.format("D"),
                 isCurrentMonth: day.isSame(refDay, "month"),
                 isToday: day.isSame(moment(), "day"),
+                // get weekday
+                dayOfWeek: day.format("d"),
             });
             day.add(1, "day");
         }
@@ -189,7 +193,21 @@
                     class:today={day.isToday}
                 >
                     <div class="calendar-day-container">
-                        <span class="calendar-day-num">{day.num}</span>
+                        <span
+                            class="calendar-day-num"
+                            class:saturday={day.dayOfWeek == 6}
+                            class:sunday={day.dayOfWeek == 0}
+                        >
+                            {day.num}
+                        </span>
+                        <span
+                            class="calendar-day-event"
+                            style="
+                            color: #737;
+                            background-color: #9cf;"
+                        >
+                            이벤트
+                        </span>
                     </div>
                 </li>
             {/each}
@@ -203,6 +221,7 @@
         --calendar-inactive-text-color: #aaa;
         --calendar-background-color: #fff;
         --calendar-border-color: #ddd;
+        --calendar-hover-border-color: #a57070;
     }
 
     [data-theme="dark"] {
@@ -210,6 +229,7 @@
         --calendar-inactive-text-color: #aaa;
         --calendar-background-color: #555;
         --calendar-border-color: #666;
+        --calendar-hover-border-color: #a57070;
     }
 
     div,
@@ -229,7 +249,6 @@
             border-color: var(--calendar-active-text-color);
         }
     }
-
 
     div.calendar-container {
         display: flex;
@@ -260,8 +279,9 @@
         flex-direction: row;
         justify-content: center;
         width: 100%;
-        height: 4rem;
+        height: 3rem;
         list-style: none;
+
         li {
             display: flex;
             flex-direction: row;
@@ -269,7 +289,7 @@
             align-items: center;
             width: 100%;
             height: 100%;
-            font-size: 1.5rem;
+            font-size: 1rem;
             font-weight: bold;
         }
     }
@@ -280,8 +300,10 @@
         flex-wrap: wrap;
         justify-content: center;
         width: 100%;
-        height: calc(100% - 4.5rem);
+        height: calc(100% - 3.5rem);
         list-style: none;
+
+        // calendar-day-container
         li {
             display: flex;
             flex-direction: row;
@@ -289,39 +311,71 @@
             align-items: center;
             width: calc(100% / 7);
             div {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
+                display: inline-flex;
+                flex-direction: column;
+                justify-content: flex-start;
                 align-items: center;
-                width: calc(100% - 0.22rem);
-                height: calc(100% - 0.22rem);
+                width: 100%;
+                height: calc(100% - 0.15rem);
                 border: 0.01rem solid var(--calendar-border-color);
-                padding: 0.2rem;
+                margin: 0.03rem;
                 font-size: 1.5rem;
+
+                // Day number
+                span.calendar-day-num {
+                    width: 100%;
+                    align-self: normal;
+                    text-align: right;
+                    font-size: 1rem;
+                }
+
+                // Event(s)
+                span.calendar-day-event {
+                    width: 100%;
+                    align-self: normal;
+                    color: #fff;
+                    background-color: #d17bc8;
+                    text-align: left;
+                    font-size: 0.8rem;
+                }
             }
             &:hover {
-                background-color: rgba(80, 170, 170, 0.3) !important;
+                div {
+                    border-color: var(--calendar-hover-border-color) !important;
+                }
             }
             &.current-month {
                 color: var(--calendar-active-text-color);
                 background-color: var(--calendar-background-color);
                 height: auto;
+
+                span.calendar-day-num {
+                    &.saturday {
+                        color: #144;
+                    }
+                    &.sunday {
+                        color: #c03;
+                    }
+                }
             }
             &.other-month {
                 color: var(--calendar-inactive-text-color);
                 background-color: var(--calendar-background-color);
                 height: auto;
+
+                span.calendar-day-num {
+                    &.saturday {
+                        color: #6bf;
+                    }
+                    &.sunday {
+                        color: #fa3;
+                    }
+                }
             }
             &.today {
                 /* background-color: red; */
-                background-color: rgba(230, 110, 110, 0.3);
+                background-color: #f99;
             }
         }
-    }
-
-    span.calendar-day-num {
-        width: 100%;
-        align-self: normal;
-        text-align: right;
     }
 </style>
