@@ -132,6 +132,8 @@
     <link rel="stylesheet" href="global.css" />
     <div class="calendar-controls">
         <select
+            name="calendar-selector-year"
+            aria-label="Year"
             on:change={moveDateBySelector}
             bind:this={selectorYear}
             bind:value={calendarData.selectedYear}
@@ -142,6 +144,8 @@
         </select>
 
         <select
+            name="calendar-selector-month"
+            aria-label="Month"
             on:change={moveDateBySelector}
             bind:this={selectorMonth}
             bind:value={calendarData.selectedMonth}
