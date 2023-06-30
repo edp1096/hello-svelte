@@ -122,7 +122,6 @@
                 num: day.format("D"),
                 isCurrentMonth: day.isSame(refDay, "month"),
                 isToday: day.isSame(moment(), "day"),
-                // get weekday
                 dayOfWeek: day.format("d"),
             });
             day.add(1, "day");
