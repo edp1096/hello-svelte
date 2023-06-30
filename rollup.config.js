@@ -5,15 +5,14 @@ import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import css from 'rollup-plugin-css-only';
+import sveltePreprocess from 'svelte-preprocess';
 
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
 	let server;
 
-	function toExit() {
-		if (server) server.kill(0);
-	}
+	function toExit() { if (server) server.kill(0); }
 
 	return {
 		writeBundle() {
@@ -31,49 +30,20 @@ function serve() {
 
 export default {
 	input: 'src/main.js',
-	output: {
-		sourcemap: true,
-		format: 'iife',
-		name: 'my_components',
-		file: 'public/build/components.js'
-	},
+	output: { sourcemap: true, format: 'iife', name: 'my_components', file: 'public/build/components.js' },
 	plugins: [
 		svelte({
-			compilerOptions: {
-				// enable run-time checks when not in production
-				dev: !production,
-				customElement: true,
-			}
+			preprocess: sveltePreprocess(),
+			compilerOptions: { dev: !production, customElement: true }
 		}),
-		// we'll extract any component CSS out into
-		// a separate file - better for performance
-		css({ output: 'components.css' }),
+		css({ output: 'components.css' }), // Extract component CSS into a separate file
 
-		// If you have external dependencies installed from
-		// npm, you'll most likely need these plugins. In
-		// some cases you'll need additional configuration -
-		// consult the documentation for details:
-		// https://github.com/rollup/plugins/tree/master/packages/commonjs
-		resolve({
-			browser: true,
-			dedupe: ['svelte'],
-			exportConditions: ['svelte']
-		}),
+		resolve({ browser: true, dedupe: ['svelte'], exportConditions: ['svelte'] }), // More config for external dependencies
 		commonjs(),
 
-		// In dev mode, call `npm run start` once
-		// the bundle has been generated
-		!production && serve(),
-
-		// Watch the `public` directory and refresh the
-		// browser on changes when not in production
-		!production && livereload('public'),
-
-		// If we're building for production (npm run build
-		// instead of npm run dev), minify
-		production && terser()
+		!production && serve(), // call `npm run start` in dev mode
+		!production && livereload('public'), // Watch browser when not in production
+		production && terser() // Minify for production
 	],
-	watch: {
-		clearScreen: false
-	}
+	watch: { clearScreen: false }
 };
