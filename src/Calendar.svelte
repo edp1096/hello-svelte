@@ -3,13 +3,13 @@
 <script>
     "use strict";
 
+    import "moment/dist/locale/ko";
     import moment from "moment";
-    import "moment/locale/ko";
     import { onMount, onDestroy } from "svelte";
 
     /**
      * @description
-     * Theme.
+     * theme.
      * @type {string}
      */
     export let theme = "light";
@@ -211,9 +211,9 @@
         setupDays(today);
     });
 
-    // onDestroy(() => {
-    //     observer.disconnect();
-    // });
+    onDestroy(() => {
+        observer.disconnect();
+    });
     // onDestroy(() => {});
 </script>
 

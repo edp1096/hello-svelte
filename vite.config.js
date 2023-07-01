@@ -1,10 +1,11 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
-import { name as pkgname } from './package.json';
+import liveReload from 'vite-plugin-live-reload'
+import { name as pkgname } from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte()],
+  plugins: [svelte(), liveReload(['./src/**/*.svelte'], { alwaysReload: true })],
   base: "",
   build: {
     rollupOptions: {
