@@ -218,7 +218,6 @@
 </script>
 
 <div class="calendar-container" data-theme={theme}>
-    <!-- <link rel="stylesheet" href="global.css" /> -->
     <div class="calendar-controls">
         <select
             name="calendar-selector-year"
@@ -244,9 +243,11 @@
             {/each}
         </select>
 
-        <button on:click={moveToday}>Today</button>
-        <button on:click={movePreviousMonth}> Previous Month </button>
-        <button on:click={moveNextMonth}> Next Month </button>
+        <button type="button" on:click={moveToday}>Today</button>
+        <button type="button" on:click={movePreviousMonth}>
+            Previous Month
+        </button>
+        <button type="button" on:click={moveNextMonth}> Next Month </button>
     </div>
 
     <div class="calendar-view">
@@ -286,7 +287,10 @@
     </div>
 </div>
 
+<!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
+    @use "./global.css";
+
     :host {
         --calendar-container-background-color: #fff;
         --calendar-active-text-color: #555;
