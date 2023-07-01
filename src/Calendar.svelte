@@ -244,10 +244,8 @@
         </select>
 
         <button type="button" on:click={moveToday}>Today</button>
-        <button type="button" on:click={movePreviousMonth}>
-            Previous Month
-        </button>
-        <button type="button" on:click={moveNextMonth}> Next Month </button>
+        <button type="button" on:click={movePreviousMonth}>&lt;</button>
+        <button type="button" on:click={moveNextMonth}>&gt;</button>
     </div>
 
     <div class="calendar-view">
@@ -289,7 +287,7 @@
 
 <!-- svelte-ignore css-unused-selector -->
 <style lang="scss">
-    @use "./global.css";
+    @use "./global.scss";
 
     :host {
         --calendar-container-background-color: #fff;
@@ -452,7 +450,7 @@
             }
             &.today {
                 /* background-color: red; */
-                background-color: #f99;
+                background-color: #faa;
             }
         }
     }
